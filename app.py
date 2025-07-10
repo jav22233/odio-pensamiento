@@ -65,19 +65,25 @@ st.header("🖼️ Imágenes de Directores y Actores")
 def display_image_from_path(folder_path, image_name, caption=""):
     img_path = os.path.join(folder_path, image_name)
     if os.path.exists(img_path):
-        st.image(img_path, caption=caption, use_column_width=True)
+        st.image(img_path, caption=caption, use_container_width=True) # Cambiado a use_container_width
     else:
         st.warning(f"⚠️ No se encontró la imagen: {image_name} en {folder_path}")
 
-st.subheader("Imagen de director/actor de ejemplo")
-col_img1, col_img2 = st.columns(2)
-with col_img1:
-    display_image_from_path(RUTA_IMAGENES_DIRECTORES_ACTORES, 'Christopher_Nolan.jpg', 'Christopher Nolan')
-with col_img2:
-    st.info("Esta imagen muestra un ejemplo de cómo se cargan las imágenes de directores/actores.")
+# ¡ELIMINADAS LAS SECCIONES DE EJEMPLO QUE SOLICITASTE!
+# Las siguientes líneas eran las que generaban el "Imagen de director/actor de ejemplo"
+# y "Imagen de ejemplo de la carpeta 'data/imagenes'".
+# Si quieres mostrar imágenes de directores/actores PERO no las de ejemplo,
+# necesitas añadir tu propio bucle o llamadas a display_image_from_path aquí
+# con los nombres de archivo de las imágenes reales de tus directores/actores.
 
-st.subheader("Imagen de ejemplo de la carpeta 'data/imagenes'")
-display_image_from_path(RUTA_IMAGENES_DATA, 'actor_130640.jpg', 'Actor de ejemplo (desde data/imagenes)')
+# Si quieres que SÓLO se muestren las imágenes cuando se itera sobre los actores/directores
+# más abajo en la sección 8, y NADA en la sección 2, simplemente no agregues nada aquí.
+# Si quieres una sección de ejemplo, pero con tus propios datos, modifica esto:
+# Por ejemplo, para mostrar a Christopher Nolan (si la imagen existe y quieres que aparezca aquí):
+# st.subheader("Imagen destacada:")
+# display_image_from_path(RUTA_IMAGENES_DIRECTORES_ACTORES, 'Christopher_Nolan.jpg', 'Christopher Nolan')
+
+
 st.markdown("---")
 
 # --- 3. Películas más vistas y mejor puntuadas (desde tu segundo bloque de código) ---
@@ -208,10 +214,10 @@ if not df_coords.empty and not df_vistas_pais.empty:
     # Legenda flotante
     legend_html = '''
     <div style="position: fixed;
-         bottom: 50px; left: 50px; width: 260px; height: auto;
-         background-color: white; z-index:9999; font-size:14px;
-         border:2px solid grey; border-radius:10px; padding: 10px;
-         font-family: Arial;">
+          bottom: 50px; left: 50px; width: 260px; height: auto;
+          background-color: white; z-index:9999; font-size:14px;
+          border:2px solid grey; border-radius:10px; padding: 10px;
+          font-family: Arial;">
     <b>🎬 Mapa de películas más vistas por país</b><br><br>
     ''' + ''.join([
         f'<i style="background:{color_dict[p]}; width:12px; height:12px; display:inline-block; margin-right:6px; border-radius:50%;"></i>{p}<br>'
@@ -514,7 +520,7 @@ if not df_recomendador.empty:
             # Mostrar resultados en un formato de grilla
             cols_per_row = 4 # Puedes ajustar esto
             num_rows = (len(filtered_data) + cols_per_row - 1) // cols_per_row # Calcular número de filas
-            
+
             for i in range(num_rows):
                 row_cols = st.columns(cols_per_row)
                 for j in range(cols_per_row):
@@ -541,4 +547,4 @@ else:
     st.error("No se pudieron cargar los datos de películas para el recomendador. Asegúrate de que 'peliculas_completas.csv' esté en la carpeta 'data'.")
 
 st.markdown("---")
-st.success("¡Tu aplicación Streamlit está lista! Sube este archivo (`streamlit_app.py`) junto con tus carpetas `data/` y `imagenes_directores_actores/` a un repositorio de GitHub para desplegarla en Streamlit Cloud.")
+st.success("¡Tu aplicación Streamlit está lista! Sube este archivo (`app.py`) junto con tus carpetas `data/` y `imagenes_directores_actores/` a un repositorio de GitHub para desplegarla en Streamlit Cloud.")
